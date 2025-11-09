@@ -96,7 +96,10 @@ class Reviewer(Mentor):
 
 lecturer = Lecturer('Иван', 'Иванов')
 reviewer = Reviewer('Пётр', 'Петров')
-student = Student('Алёхина', 'Ольга', 'Ж')
+student = Student('Ольга', 'Алёхина', 'Ж')
+
+#You also have twisted name and surname of student (see upper row).
+#I've changed it for proper results.
 
 student.courses_in_progress += ['Python', 'Java']
 lecturer.courses_attached += ['Python', 'C++']
