@@ -94,47 +94,76 @@ class Reviewer(Mentor):
         return f'Имя: {self.name} \nФамилия: {self.surname}'
 
 
-lecturer = Lecturer('Иван', 'Иванов')
-reviewer = Reviewer('Пётр', 'Петров')
-student = Student('Ольга', 'Алёхина', 'Ж')
-
 #You also have twisted name and surname of student (see upper row).
 #I've changed it for proper results.
-
-student.courses_in_progress += ['Python', 'Java']
-lecturer.courses_attached += ['Python', 'C++']
-reviewer.courses_attached += ['Python', 'C++']
-
-print(student.rate_lecture(lecturer, 'Python', 7))  # None
-print(student.rate_lecture(lecturer, 'Java', 8))  # Ошибка
-print(student.rate_lecture(lecturer, 'C++', 8))  # Ошибка
-print(student.rate_lecture(reviewer, 'Python', 6))  # Ошибка
 
 #You've used cyrillic "С" instead of latin in one row when gave attributes to objects for checking the code.
 #I've changed it because it had not let to get a proper result.
 
-print(lecturer.grades)  # {'Python': [7]}
 
-print(student)
-
-print(lecturer)
-
-print(reviewer)
-
-lecturer_1 = Lecturer("А.", "Синявский")
-lecturer_2 = Lecturer("Г", "Свиридов")
-lecturer_1.courses_attached = ['Python', 'C++']
-lecturer_2.courses_attached = ['Python', 'C++']
+lecturer_1 = Lecturer("Андрей", "Синявский")
+lecturer_2 = Lecturer("Григорий", "Свиридов")
+lecturer_1.courses_attached = ['Python', 'Java']
+lecturer_2.courses_attached = ['Java', 'C++']
 lecturer_1.grades["Python"] = [8]
-lecturer_2.grades["Python"] = [10]
+lecturer_1.grades["Java"] = [5]
+lecturer_2.grades["Java"] = [10]
+lecturer_2.grades["C++"] = [7]
+
+reviewer_1 = Reviewer("Кэрол", "Пелетье")
+reviewer_2 = Reviewer("Мэгги", "Грин")
+reviewer_1.courses_attached = ['C++', "Python"]
+reviewer_2.courses_attached = ['Python', "C++"]
+
+student_1 = Student("Карл", "Граймс", "М")
+student_2 = Student("Дороти", "Спаркс", "Ж")
+student_1.courses_in_progress = ['Java']
+student_2.courses_in_progress = ['C++']
+student_1.finished_courses = ['Python']
+student_2.finished_courses = ['Python']
+student_1.grades = {'Python' : [10], 'Java' : [6], 'C++' : [6]}
+student_2.grades = {'Python' : [9], 'Java' : [6], 'C++' : [10]}
+
+
+
+print(student_1)
+
+print(student_2)
+
+print(lecturer_1)
+
+print(lecturer_2)
+
+print(reviewer_1)
+
+print(reviewer_2)
+
+
 print(lecturer_1 == lecturer_2)
 print(lecturer_1 > lecturer_2)
 print(lecturer_1 < lecturer_2)
 
-st_1 = Student("R.", "Grimes", "Male")
-st_2 = Student("D", "Dixon", "Male")
-st_1.grades["Python"] = [9]
-st_2.grades["Python"] = [8]
-print(st_1 == st_2)
-print(st_1 > st_2)
-print(st_1 < st_2)
+
+print(student_1 == student_2)
+print(student_1 > student_2)
+print(student_1 < student_2)
+
+
+def total_person_grade(person_list, course_list):
+    total_grades = {}
+    for course_name in course_list:
+        grade_list = []
+        for person in person_list:
+            if course_name in person.grades:
+                grade_list.extend(person.grades[course_name])
+        if len(grade_list) == 0:
+            total_grades[course_name] = 'Ошибка'
+        else:
+            total_grades[course_name] = sum(grade_list) / len(grade_list)
+    return total_grades
+
+
+print(total_person_grade([student_1, student_2], ['Python', 'C++', 'Java']))
+
+print(total_person_grade([lecturer_1, lecturer_2], ['Python', 'C++', 'Java']))
+
